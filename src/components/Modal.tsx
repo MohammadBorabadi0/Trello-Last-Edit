@@ -64,7 +64,7 @@ const Modal: FC<IProps> = ({
                 deleteTask!(task.id);
               } else {
                 setShowColumnOptions!(false);
-                deleteColumn!(column.id);
+                deleteColumn!(column?.id);
               }
             }}
             className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700  transition-all duration-100 text-white rounded-md cursor-pointer"

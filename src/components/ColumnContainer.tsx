@@ -6,7 +6,6 @@ import TaskCard from "./TaskCard";
 import { BiPlus } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
 import Modal from "./Modal";
-import { useColumnStore } from "../store/Store";
 
 interface Props {
   column: Column;
@@ -30,8 +29,6 @@ function ColumnContainer({
 }: Props) {
   const [editMode, setEditMode] = useState(false);
   const [showColumnOptions, setShowColumnOptions] = useState(false);
-
-  const { addColumn, columns } = useColumnStore((state) => state);
 
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task.id);
@@ -178,10 +175,6 @@ function ColumnContainer({
         <BiPlus />
         Add task
       </button>
-      <button onClick={() => addColumn({ id: "1", title: "Todo" })}>
-        Add Column
-      </button>
-      {JSON.stringify(columns)}
     </div>
   );
 }

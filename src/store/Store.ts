@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { Column } from "../types";
 
 interface ISidebar {
   showSidebar: boolean;
@@ -14,24 +13,3 @@ export const useStore = create<ISidebar>((set) => ({
 }));
 
 // -----------------------------------------------------
-
-const getLocalStorage = () => {
-  return localStorage.getItem("columns") || [];
-};
-
-// interface IColumn {
-//   id: number;
-//   title: string;
-// }
-
-interface IColumn {
-  columns: Column[] | [];
-  addColumn: (column: Column) => void;
-}
-
-export const useColumnStore = create<IColumn>((set) => ({
-  columns: [],
-  addColumn: (column: Column) => {
-    set((state) => ({ columns: [...state.columns, column] }));
-  },
-}));

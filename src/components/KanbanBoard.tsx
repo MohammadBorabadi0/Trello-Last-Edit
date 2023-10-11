@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { Column, Id, Task } from "../types";
 import ColumnContainer from "./ColumnContainer";
 import {
@@ -14,17 +14,25 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import TaskCard from "./TaskCard";
-import { defaultCols, defaultTasks } from "../data/data";
+import { defaultTasks } from "../data/data";
 
 function KanbanBoard() {
-  const [columns, setColumns] = useState<Column[]>(defaultCols);
-  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
+  let getLocalStorage = localStorage.getItem("columns");
+  getLocalStorage = getLocalStorage ? JSON.parse(getLocalStorage) : [];
+
+  const [columns, setColumns] = useState<Column[] | []>(getLocalStorage);
 
   const [tasks, setTasks] = useState<Task[]>(defaultTasks);
+
+  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("columns", JSON.stringify(columns));
+  }, [columns]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -55,8 +63,8 @@ function KanbanBoard() {
                 <ColumnContainer
                   key={col.id}
                   column={col}
-                  deleteColumn={deleteColumn}
                   updateColumn={updateColumn}
+                  deleteColumn={deleteColumn}
                   createTask={createTask}
                   deleteTask={deleteTask}
                   updateTask={updateTask}
@@ -92,8 +100,8 @@ function KanbanBoard() {
             {activeColumn && (
               <ColumnContainer
                 column={activeColumn}
-                deleteColumn={deleteColumn}
                 updateColumn={updateColumn}
+                deleteColumn={deleteColumn}
                 createTask={createTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
@@ -140,7 +148,7 @@ function KanbanBoard() {
     setTasks(newTasks);
   }
 
-  // add column 
+  // add column
   function createNewColumn() {
     const columnToAdd: Column = {
       id: generateId(),
