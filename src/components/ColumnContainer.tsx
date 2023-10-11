@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import TaskCard from "./TaskCard";
 import { BiPlus } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
-import Modal from "./Modal";
+import ColumnModal from "./Modal/ColumnModal";
 
 interface Props {
   column: Column;
@@ -142,13 +142,12 @@ function ColumnContainer({
           <FiMoreHorizontal />
         </button>
         {showColumnOptions && (
-          <Modal
-            showColumnOptions={showColumnOptions}
-            setShowColumnOptions={setShowColumnOptions}
-            deleteColumn={deleteColumn}
-            setEditMode={setEditMode}
-            column={column}
-          />
+          <ColumnModal 
+          showColumnOptions={showColumnOptions}
+          setShowColumnOptions={setShowColumnOptions}
+          deleteColumn={deleteColumn}
+          setEditMode={setEditMode}
+          column={column} />
         )}
       </div>
 

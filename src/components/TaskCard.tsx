@@ -3,7 +3,7 @@ import { Id, Task } from "../types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GrEdit } from "react-icons/gr";
-import Modal from "./Modal";
+import TaskModal from "./Modal/TaskModal";
 
 interface Props {
   task: Task;
@@ -115,7 +115,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         </button>
       )}
       {showCardOptions && (
-        <Modal
+        <TaskModal
           showCardOptions={showCardOptions}
           setShowCardOptions={setShowCardOptions}
           deleteTask={deleteTask}

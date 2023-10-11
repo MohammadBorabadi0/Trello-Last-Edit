@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { BiChevronLeft } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
 

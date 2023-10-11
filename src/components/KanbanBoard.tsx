@@ -17,8 +17,9 @@ import TaskCard from "./TaskCard";
 import { defaultTasks } from "../data/data";
 
 function KanbanBoard() {
-  let getLocalStorage = localStorage.getItem("columns");
-  getLocalStorage = getLocalStorage ? JSON.parse(getLocalStorage) : [];
+  // let getLocalStorage = localStorage.getItem("columns");
+  console.log(JSON.parse(localStorage.getItem("columns")!));
+  const getLocalStorage = JSON.parse(localStorage.getItem("columns") || "") 
 
   const [columns, setColumns] = useState<Column[] | []>(getLocalStorage);
 

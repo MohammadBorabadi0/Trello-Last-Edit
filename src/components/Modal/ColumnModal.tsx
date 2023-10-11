@@ -1,38 +1,26 @@
 import { FC } from "react";
+import { Column, Id } from "../../types";
 import { IoClose } from "react-icons/io5";
-import { Column, Id, Task } from "../types";
 
 interface IProps {
-  showColumnOptions?: boolean;
-  showCardOptions?: boolean;
-  setShowColumnOptions?: (isShow: boolean) => void;
-  setShowCardOptions?: (isShow: boolean) => void;
-  deleteColumn?: (id: Id) => void;
-  deleteTask?: (id: Id) => void;
-  setEditMode?: React.Dispatch<React.SetStateAction<boolean>>;
-  column?: Column;
-  task?: Task;
+  showColumnOptions: boolean;
+  setShowColumnOptions: (isShow: boolean) => void;
+  deleteColumn: (id: Id) => void;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  column: Column;
 }
 
-const Modal: FC<IProps> = ({
-  showCardOptions,
+const ColumnModal: FC<IProps> = ({
   setShowColumnOptions,
-  setShowCardOptions,
   deleteColumn,
-  deleteTask,
   setEditMode,
-  task,
   column,
 }) => {
   return (
     <section
       onClick={(e) => {
         e.stopPropagation();
-        if (showCardOptions) {
-          setShowCardOptions!(false);
-        } else {
-          setShowColumnOptions!(false);
-        }
+        setShowColumnOptions(false);
       }}
       className="flex justify-center items-center z-40 bg-slate-700 cursor-default fixed inset-0 h-screen w-full opacity-90"
     >
@@ -46,42 +34,29 @@ const Modal: FC<IProps> = ({
         <ul className="flex flex-col gap-3">
           <li
             onClick={() => {
-              setEditMode!(true);
-              if (showCardOptions) {
-                setShowCardOptions!(false);
-              } else {
-                setShowColumnOptions!(false);
-              }
+              setEditMode(true);
+              setShowColumnOptions(false);
             }}
             className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700  transition-all duration-100 text-white rounded-md cursor-pointer"
           >
-            Edit {showCardOptions ? "Card" : "Column"}
+            Edit Column
           </li>
           <li
             onClick={() => {
-              if (showCardOptions) {
-                setShowCardOptions!(false);
-                deleteTask!(task.id);
-              } else {
-                setShowColumnOptions!(false);
-                deleteColumn!(column?.id);
-              }
+              setShowColumnOptions(false);
+              deleteColumn(column.id);
             }}
             className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700  transition-all duration-100 text-white rounded-md cursor-pointer"
           >
-            Delete {showCardOptions ? "Card" : "Column"}
+            Delete Column
           </li>
           <li className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700  transition-all duration-100 text-white rounded-md cursor-pointer">
-            Move {showCardOptions ? "Card" : "Column"}
+            Move Column
           </li>
         </ul>
         <button
           onClick={() => {
-            if (showCardOptions) {
-              setShowCardOptions!(false);
-            } else {
-              setShowColumnOptions!(false);
-            }
+            setShowColumnOptions(false);
           }}
           className="flex justify-center items-center text-2xl absolute top-3 right-2 rounded-md hover:text-white hover:bg-slate-600 h-7 w-7"
         >
@@ -92,4 +67,4 @@ const Modal: FC<IProps> = ({
   );
 };
 
-export default Modal;
+export default ColumnModal;
