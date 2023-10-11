@@ -18,10 +18,11 @@ import { defaultTasks } from "../data/data";
 
 function KanbanBoard() {
   // let getLocalStorage = localStorage.getItem("columns");
-  console.log(JSON.parse(localStorage.getItem("columns")!));
-  const getLocalStorage = JSON.parse(localStorage.getItem("columns") || "") 
+  // console.log(JSON.parse(localStorage.getItem("columns")!));
+  // const getLocalStorage = JSON.parse(localStorage.getItem("columns") || "")
 
-  const [columns, setColumns] = useState<Column[] | []>(getLocalStorage);
+  const [columns, setColumns] = useState<Column[] | []>([]);
+  // const [columns, setColumns] = useState<Column[] | []>(getLocalStorage);
 
   const [tasks, setTasks] = useState<Task[]>(defaultTasks);
 
